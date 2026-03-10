@@ -11,6 +11,7 @@
 <body class="bg-light">
     <div class="container-fluid">
         <div class="row">
+            <!-- Sidebar -->
             <nav id="sidebarMenu"
                 class="col-md-3 col-lg-2 d-md-block bg-white border-end sticky-top vh-100 overflow-y-auto p-3">
                 <div class="mb-4 ps-2 border-bottom pb-3">
@@ -27,15 +28,15 @@
                 </div>
             </nav>
 
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4" data-bs-spy="scroll"
-                data-bs-target="#data_exploration-nav" data-bs-smooth-scroll="true" tabindex="0">
+            <!-- Main -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
 
-                <header class="mb-4 border-bottom pb-3 d-flex justify-content-between align-items-center">
-                    <div>
-                        <h1 class="fw-bold text-dark">Vehicle Insights Dashboard</h1>
-                        <p class="text-secondary mb-0">Regression & Clustering Analysis</p>
-                    </div>
+                <header class="mb-4 border-bottom pb-3">
+                    <h1 class="fw-bold text-dark">Vehicle Insights Dashboard</h1>
+                    <p class="text-secondary mb-0">Client Clustering Analysis — KMeans (Silhouette-Refined)</p>
                 </header>
+
+                <!-- ① Clustering Form + Result -->
                 <section id="clustering-analysis" class="mb-5 pt-3">
                     <div class="row g-4">
                         <div class="col-lg-7">
@@ -71,10 +72,12 @@
                                                 <button type="submit"
                                                     class="btn btn-primary w-100 fw-bold py-2 shadow-sm">Run Combined
                                                     Inference</button>
-
                                             </div>
                                         </div>
                                     </form>
+                                    {% if error %}
+                                    <div class="alert alert-danger mt-3">{{ error }}</div>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -120,21 +123,43 @@
                         <div
                             class="card-header bg-white border-bottom py-3 d-flex justify-content-between align-items-center">
                             <span class="fw-bold text-dark">Evaluation Metrics</span>
-                            <span class="badge bg-light text-primary border border-primary"> Silhouette Score:
-                                {{evaluations.silhouette|safe }}
-                            </span>
+                            <div class="d-flex flex-wrap gap-2">
+                                <span class="badge bg-light text-primary border border-primary"> Silhouette Score:
+                                    {{ evaluations.silhouette|safe }}
+                                </span>
+                                <span class="badge bg-light text-success border border-success"> Distance CV:
+                                    {{ evaluations.coefficient_variation|safe }}%
+                                </span>
+                                <span class="badge bg-info text-dark border border-info"> Refined Silhouette:
+                                    {{ evaluations.refined_silhouette|safe }}
+                                </span>
+                                <span class="badge bg-warning text-dark border border-warning"> Refined CV:
+                                    {{ evaluations.refined_coefficient_variation|safe }}%
+                                </span>
+                                <span class="badge bg-secondary text-white border border-secondary"> Refined Samples:
+                                    {{ evaluations.refined_sample_size|safe }}
+                                </span>
+                            </div>
                         </div>
                         <div class="card-body">
+                            <p class="text-muted small mb-3">
+                                <strong>Refined Silhouette</strong> evaluates the cluster quality using only the 
+                                top 25% of samples closest to their centroids. 
+                                <strong>Distance CV</strong> measures the Coefficient of Variation of the distances 
+                                within each cluster.
+                            </p>
                             <div class="table-responsive">
                                 {{ evaluations.summary|safe }}
                             </div>
                         </div>
                     </div>
                 </section>
+
+                <!-- ③ Comparison Table -->
                 <section id="comparison-analysis" class="mb-5 pt-3">
                     <div class="card shadow-sm border-0">
                         <div class="card-header bg-white border-bottom py-3">
-                            <span class="fw-bold">Comparison Analysis</span>
+                            <span class="fw-bold">Comparison Analysis (Sample)</span>
                         </div>
                         <div class="card-body p-0">
                             <div class="table-responsive mt-3">
@@ -143,6 +168,7 @@
                         </div>
                     </div>
                 </section>
+
             </main>
         </div>
     </div>
