@@ -5,3 +5,5 @@ __pycache__/
 *.pyd
 db.sqlite3
 *.pkl
+config.bat
+node_modules
