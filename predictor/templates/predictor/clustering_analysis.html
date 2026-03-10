@@ -133,8 +133,11 @@
                                 <span class="badge bg-info text-dark border border-info"> Refined Silhouette:
                                     {{ evaluations.refined_silhouette|safe }}
                                 </span>
-                                <span class="badge bg-warning text-dark border border-warning"> Refined CV:
-                                    {{ evaluations.refined_coefficient_variation|safe }}%
+                                <span class="badge bg-warning text-dark border border-warning"> Refined Income CV:
+                                    {{ evaluations.refined_income_cv|safe }}%
+                                </span>
+                                <span class="badge bg-warning text-dark border border-warning"> Refined Price CV:
+                                    {{ evaluations.refined_price_cv|safe }}%
                                 </span>
                                 <span class="badge bg-secondary text-white border border-secondary"> Refined Samples:
                                     {{ evaluations.refined_sample_size|safe }}
@@ -146,7 +149,8 @@
                                 <strong>Refined Silhouette</strong> evaluates the cluster quality using only the 
                                 top 25% of samples closest to their centroids. 
                                 <strong>Distance CV</strong> measures the Coefficient of Variation of the distances 
-                                within each cluster.
+                                within each cluster. <strong>Refined CV (Income/Price)</strong> measures the consistency 
+                                of features within the core densest samples.
                             </p>
                             <div class="table-responsive">
                                 {{ evaluations.summary|safe }}

@@ -77,7 +77,7 @@ def district_map_chart(df: pd.DataFrame) -> str:
         margin=dict(l=0, r=0, t=40, b=0),
         height=520,
         title=dict(
-            text="🗺️ Rwanda — Vehicle Clients per District",
+            text="Rwanda — Vehicle Clients per District",
             font=dict(size=16, color="#1a1a2e"),
             x=0.5,
         ),
