@@ -7,6 +7,8 @@ For more information on this file, see
 https://docs.djangoproject.com/en/6.0/howto/deployment/asgi/
 """
 
+import utils.net
+import utils.clients
 import utils.http_session
 import utils.transport
 import utils.session
